@@ -91,11 +91,11 @@
         </td>
 
         <td>
-          <%= a_photo.likes_count %>
+          <%= Like.where(:photo_id => a_photo.id).count%>
         </td>
 
         <td>
-          <%= a_photo.comments_count %>
+          <%= Comment.where(:photo_id => a_photo.id).count %>
         </td>
 
         <td>

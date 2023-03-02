@@ -10,6 +10,16 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def show
+    the_id = params.fetch("user_path")
+
+    matching_user = User.where({ :username => the_id })
+
+    @the_user = matching_user.at(0)
+
+    render({ :template => "users/show.html.erb" })
+  end
+
 
 
 

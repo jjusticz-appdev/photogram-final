@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get("/", {:controller => "application", :action => "index"})
 
   get("/users", {:controller => "application", :action => "index"})
+
+  get("/users/:user_path", {:controller => "application", :action => "show"})
   
   # Routes for the User account:
 
