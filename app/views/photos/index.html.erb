@@ -46,10 +46,7 @@
   <div>
     <table border="1">
       <tr>
-        <th>
-          ID
-        </th>
-
+        
         <th>
           Image
         </th>
@@ -84,12 +81,9 @@
 
       <% @list_of_photos.each do |a_photo| %>
       <tr>
+  
         <td>
-          <%= a_photo.id %>
-        </td>
-
-        <td>
-          <%= a_photo.image %>
+          <img src="<%= a_photo.image %>">
         </td>
 
         <td>

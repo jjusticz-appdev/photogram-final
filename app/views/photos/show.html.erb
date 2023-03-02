@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Photo #<%= @the_photo.id %> details
+      Photo details
     </h1>
 
     <div>
@@ -10,12 +10,13 @@
           Go back
         </a>
       </div>
-
+    <%if @the_photo.owner_id == @current_user.id%>
       <div>
         <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete photo
+          Delete this photo
         </a>
       </div>
+    <%end%>
     </div>
 
     <dl>
@@ -37,7 +38,7 @@
         Owner
       </dt>
       <dd>
-        <%= @the_photo.owner_id %>
+        <%= User.where(:id => @the_photo.owner_id).at(0).username %>
       </dd>
 
       <dt>
@@ -51,33 +52,39 @@
         Likes count
       </dt>
       <dd>
-        <%= @the_photo.likes_count %>
+        <%= Like.where(:photo_id => @the_photo.id).count %>
       </dd>
 
       <dt>
         Comments count
       </dt>
       <dd>
-        <%= @the_photo.comments_count %>
+        <%= Comment.where(:photo_id => @the_photo.id).count %>
       </dd>
 
       <dt>
         Fans
       </dt>
       <dd>
-        Add list of those who have liked this!!!!!
+        
       </dd>
 
 
       <dt>
         Add a fan
       </dt>
-      <dd>
-        <form action="/insert_like" method="post">
-          <input type="hidden" value="" name="query_photo_id">
-          <button>Like</button>
-        </form>
-      </dd>
+      <% if Like.where(:photo_id => @the_photo.id).where(:fan_id => @current_user.id).at(0) == nil%>
+        <dd>
+          <form action="/insert_like" method="post">
+            <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+            <button>Like</button>
+          </form>
+        </dd>
+      <%else%>
+        <dd>
+          <a href="/delete_like/<%= Like.where(:photo_id => @the_photo.id).where(:fan_id => @current_user.id).at(0).id %>">Unlike</a>
+        </dd>
+      <%end%>
       
 
       
@@ -87,20 +94,20 @@
 
 <hr>
 
-<%if @current_user == @the_photo.owner_id%>
+<%if @current_user.id == @the_photo.owner_id%>
 <div>
   <div>
     <h2>
       Edit photo
     </h2>
 
-    <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
+    <form action="/modify_photo/<%=@the_photo.id%>" method="post" enctype="multipart/form-data">
       <div>
-        <label for="image_box">
+        <label for="image_box1">
           Image
         </label>
 
-        <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
+        <input type="file" id="image_box1" name="query_image" placeholder="Enter a URL for the image" value="<%=@the_photo.image%>">
       </div>
 
       <div>
@@ -108,35 +115,11 @@
           Caption
         </label>
 
-        <textarea id="caption_box" name="query_caption"><%= @the_photo.caption %></textarea>
-      </div>
-
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
-
-        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @the_photo.likes_count %>">
-      </div>
-
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
-
-        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @the_photo.comments_count %>">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_photo.owner_id %>">
+        <textarea id="caption_box" name="query_caption" placeholder="Enter a caption for the photo..."></textarea>
       </div>
 
       <button>
-        Update photo
+        Add photo
       </button>
     </form>
   </div>
