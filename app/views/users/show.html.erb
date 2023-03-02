@@ -8,12 +8,18 @@
   <dd>
     0
 
-
+      <%if @the_user.id != @current_user.id%>
       <div>
-          <a href="/">
-            Unfollow
-          </a>
+          <form action="/insert_follow_request" method="post">
+              <input type="hidden" name="query_recipient_id" value="<%= @the_user.id%>">
+              <input type="hidden" name="query_sender_id" value="<%= @current_user.id%>">
+              <input type="hidden" name="query_status" value="pending">
+              <button>
+                Follow
+              </button>
+            </form>
     </div>
+    <%end%>
 
   </dd>
 
@@ -39,7 +45,7 @@
   </ul>
 </nav>
 
-<h2>Feed (<%= Photo.where(:owner_id => @the_user.id).count%>)</h2>
+<h2>Own photos (<%= Photo.where(:owner_id => @the_user.id).count%>)</h2>
 
 <table border="1">
   <tr>

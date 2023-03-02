@@ -39,7 +39,9 @@
   </ul>
 </nav>
 
-<h2>Feed (<%=%>)</h2>
+<h2>Feed (<%=@the_feed.count%>)</h2>
+
+
 
 <table border="1">
   <tr>
@@ -88,7 +90,7 @@
     </td>
 
     <td>
-      <a href="/photos/<%=@the_photo.id%>">
+      <a href="/photos/<%=%>">
         Show details
       </a>
     </td>

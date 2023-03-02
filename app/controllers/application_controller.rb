@@ -29,7 +29,11 @@ class ApplicationController < ActionController::Base
 
     @the_user = matching_user.at(0)
 
-    @the_feed
+    @acceptedreq = FollowRequest.where(:sender_id=>@the_user.id).where(:status=>"accepted")
+
+    @following = User.where(id: @acceptedreq)
+
+    @the_feed = Photo.where(owner_id: @following)
 
     render({ :template => "users/show_feed.html.erb" })
   end
