@@ -17,7 +17,21 @@ class ApplicationController < ActionController::Base
 
     @the_user = matching_user.at(0)
 
+    @user_photos = Photo.where(:owner_id => @the_user.id)
+
     render({ :template => "users/show.html.erb" })
+  end
+
+  def show_feed
+    the_id = params.fetch("user_path")
+
+    matching_user = User.where({ :username => the_id })
+
+    @the_user = matching_user.at(0)
+
+    @the_feed
+
+    render({ :template => "users/show_feed.html.erb" })
   end
 
 

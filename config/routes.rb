@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get("/users", {:controller => "application", :action => "index"})
 
   get("/users/:user_path", {:controller => "application", :action => "show"})
+
+  get("/users/:user_path/feed", {:controller => "application", :action => "show_feed"})
   
   # Routes for the User account:
 

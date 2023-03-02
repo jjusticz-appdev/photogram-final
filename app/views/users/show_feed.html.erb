@@ -39,7 +39,7 @@
   </ul>
 </nav>
 
-<h2>Feed (<%= Photo.where(:owner_id => @the_user.id).count%>)</h2>
+<h2>Feed (<%=%>)</h2>
 
 <table border="1">
   <tr>
@@ -66,33 +66,31 @@
     <th></th>
   </tr>
 
-<% @user_photos.each do |a_photo|%>
   <tr>
     <td>
-      <img src="<%= a_photo.image%>">
+      <img src="https://robohash.org/enimvitaeveniam">
     </td>
 
     <td>
-      <%= @the_user.username%>
+      isidro
     </td>
 
     <td>
-      <%= a_photo.caption%>
+      Summer will end soon enough, and childhood as well.
     </td>
 
     <td>
-      <%= time_ago_in_words(a_photo.created_at)%> ago
+      over 5 years ago
     </td>
 
     <td>
-      <%=Like.where(:photo_id => a_photo.id).count%> 
+      8
     </td>
 
     <td>
-      <a href="/photos/<%= a_photo.id%>">
+      <a href="/photos/<%=@the_photo.id%>">
         Show details
       </a>
     </td>
   </tr>
-<%end%>  
 </table>
