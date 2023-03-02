@@ -94,6 +94,9 @@
 
 <hr>
 
+
+
+
 <%if @current_user.id == @the_photo.owner_id%>
 <div>
   <div>
@@ -115,11 +118,11 @@
           Caption
         </label>
 
-        <textarea id="caption_box" name="query_caption" placeholder="Enter a caption for the photo..."></textarea>
+        <textarea id="caption_box" name="query_caption" placeholder="Enter a caption for the photo..."><%=@the_photo.caption%></textarea>
       </div>
 
       <button>
-        Add photo
+        Update photo
       </button>
     </form>
   </div>
@@ -127,3 +130,46 @@
 <%else%>
 <%end%>
 <hr>
+<h2>Comments</h2>
+
+<table>
+  <tr>
+    <th>
+      Commenter
+    </th>
+    <th>
+      Comment
+    </th>
+    <th>
+      Posted
+    </th>
+  </tr>
+
+<%@list_of_comments.each do |a_comment|%>
+  <tr>
+    <td>
+      <%=User.where(:id=>a_comment.author_id).at(0).username%>
+    </td>
+    <td>
+      <%=a_comment.body%>
+    </td>
+    <td>
+      <%=time_ago_in_words(a_comment.created_at)%>
+    </td>
+
+  </tr>
+<%end%>
+
+</table>
+
+
+<h3>Add a new comment</h3>
+
+<form action="/insert_comment" method="post">
+  <input type="hidden" value="<%=@the_photo.id%>" name="query_photo_id">
+  <label for="browser_comment">Comment</label>
+  <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
+  <button>
+    Add a comment
+  </button>
+</form>
