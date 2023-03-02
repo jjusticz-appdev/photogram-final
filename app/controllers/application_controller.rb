@@ -2,13 +2,15 @@ class ApplicationController < ActionController::Base
 
   def index
 
-    matching_photos = Photo.all
+    matching_users = User.all
 
-    @list_of_photos = matching_photos.order({ :created_at => :desc })
+    @list_of_users = matching_users.order({ :created_at => :desc })
 
     render({ :template => "users/index.html.erb" })
 
   end
+
+
 
 
   before_action(:load_current_user)

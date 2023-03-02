@@ -21,11 +21,33 @@
 
       </tr>
 
+      <% @list_of_users.each do |a_user| %>
       <tr>
         <td>
-          <% %>
+          <%= a_user.username %>
         </td>
 
         <td>
+          <% if a_user.private == true %>
+            Yes
+          <% else %>
+            No
+          <% end %>
         </td>
+
+        <td>
+          <form action="/insert_follow_request" method="post">
+            <input type="hidden" name="query_recipient_id" value="<%= a_user.id%>">
+            <button>
+              Follow
+            </button>
+          </form>
+        </td>
+
+        <td>
+          <a href="/users/<%= a_user.id%>">Show details</a>
+        </td>
+
+
       </tr>
+      <%end%>

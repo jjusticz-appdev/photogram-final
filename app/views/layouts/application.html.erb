@@ -28,18 +28,30 @@
         </a>
       </li>
 
-        <li>
-          <a href="/user_sign_in">
-            Sign in
-          </a>
-        </li>
+      <%if @current_user != nil%>
+      <li>
+        <a href="/edit_user_profile"> <%=@current_user.username%> </a>
+      </li>
+      <%end%>
 
+      <% if @current_user == nil %>
         <li>
-          <a href="/user_sign_up">
-            Sign up
-          </a>
+          <a href="/user_sign_up"> Sign Up </a>
         </li>
+        <li>
+          <a href="/user_sign_in"> Sign In </a>
+        </li>
+      <%else%>
+        <li>
+          <a href="/user_sign_out"> Sign Out </a>
+        </li>
+      <%end%>
+
     </ul>
+
+    <p style="color: green"><%= notice%></p>
+    <p style="color: red"><%= alert%></p>
+
     <%= yield %>
   </body>
 </html>
