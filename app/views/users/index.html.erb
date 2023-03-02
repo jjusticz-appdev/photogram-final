@@ -36,7 +36,14 @@
         </td>
         <% if @current_user != nil%>
           <td>
-            <form action="/insert_follow_request" method="post">
+        <% if FollowRequest.where(:sender_id=>@current_user.id).where(:recipient_id => a_user.id).where(:status=>"accepted").at(0) != nil%>
+        <a href="/delete_follow_request/<%= FollowRequest.where(:sender_id=>@current_user.id).where(:recipient_id => a_user.id).where(:status=>"accepted").at(0).id %>">Unfollow</a>
+
+        <% elsif FollowRequest.where(:sender_id=>@current_user.id).where(:recipient_id => a_user.id).where(:status=>"pending").at(0) != nil%>
+        
+        Request sent. <a href="/delete_follow_request/<% FollowRequest.where(:sender_id=>@current_user.id).where(:recipient_id => a_user.id).where(:status=>"pending").at(0).id %>">Cancel</a>
+        <%else%>
+          <form action="/insert_follow_request" method="post">
               <input type="hidden" name="query_recipient_id" value="<%= a_user.id%>">
               <input type="hidden" name="query_sender_id" value="<%= @current_user.id%>">
               <input type="hidden" name="query_status" value="pending">
@@ -44,11 +51,16 @@
                 Follow
               </button>
             </form>
+        <%end%>
+          
+        
           </td>
         <%else%>
-          <td>
-          </td>
+          
         <%end%>
+
+        
+
 
         <td>
           <a href="/users/<%= a_user.id%>">Show details</a>

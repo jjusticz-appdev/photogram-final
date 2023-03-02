@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   get("/users/:user_path", {:controller => "application", :action => "show"})
 
   get("/users/:user_path/feed", {:controller => "application", :action => "show_feed"})
+
+  get("/users/:user_path/liked_photos", {:controller => "application", :action => "show_liked_photos"})
+
+  get("/users/:user_path/discover", {:controller => "application", :action => "show_discover"})
   
   # Routes for the User account:
 
